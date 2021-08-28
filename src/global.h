@@ -27,7 +27,7 @@ public:
 
     int findCourse(string name);
 
-    bool changeCourse(int index, Course course);
+    bool changeCourse(int index, Course* course);
 
     string getCourseID(string name);
 
@@ -48,7 +48,7 @@ public:
 private:
     Context() = default;
 
-    vector<Course> course_list;
+    vector<Course *> course_list;
     vector<User *> user_list;
     int current_usr_id;
 };

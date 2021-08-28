@@ -9,14 +9,14 @@
 #include "utils.h"
 
 
-bool Context::changeCourse(int index, Course course) {
+bool Context::changeCourse(int index, Course* course) {
     course_list[index] = course;
     return true;
 }
 
 int Context::findCourse(string name) {
     for (int i = 0; i < course_list.size(); i++) {
-        if (course_list[i].getName() == name) {
+        if (course_list[i]->getName() == name) {
             return i;
         }
     }
@@ -56,7 +56,7 @@ int Context::findUser(string id, string name) {
 int Context::findCourse(string id,string name) {
     if(!id.empty()){
         for(int i = 0;i < course_list.size();i++) {
-            if(course_list[i].getId() == id) {
+            if(course_list[i]->getId() == id) {
                 return i;
             }
         }
@@ -64,7 +64,7 @@ int Context::findCourse(string id,string name) {
 
     if(!name.empty()) {
         for (int i = 0;i < course_list.size();i++){
-            if(course_list[i].getName() == name) {
+            if(course_list[i]->getName() == name) {
                 return i;
             }
         }
@@ -74,6 +74,7 @@ int Context::findCourse(string id,string name) {
 }
 
 void Context::addCourse(string name) {
+    /*
     string id;
     string coursetype;
     unsigned int credit;
@@ -105,7 +106,7 @@ void Context::addCourse(string name) {
 
         cout << "开课成功！" << endl;
     }
-
+*/
 
 
 }
@@ -118,7 +119,7 @@ bool Context::addUser(User* user) {
 string Context::getCourseID(string name) {
     int i = findCourse(name);
     if (i >= 0) {
-        return course_list[i].getId();
+        return course_list[i]->getId();
     }
     return "";
 }
@@ -126,16 +127,16 @@ string Context::getCourseID(string name) {
 Course Context::getCourse(string id, string name) {
     if (!id.empty()) {
         for (int i = 0; i < course_list.size(); i++) {
-            if (course_list[i].getId() == id) {
-                return course_list[i];
+            if (course_list[i]->getId() == id) {
+                return *course_list[i];
             }
         }
     }
 
     if (!name.empty()) {
         for (int i = 0; i < course_list.size(); i++) {
-            if (course_list[i].getName() == name) {
-                return course_list[i];
+            if (course_list[i]->getName() == name) {
+                return *course_list[i];
             }
         }
     }
