@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.opencl": "opencl",
+        "xstring": "cpp",
+        "string": "cpp"
+    }
+}
