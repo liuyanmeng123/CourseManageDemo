@@ -37,7 +37,7 @@ public:
 
     int findCourse(string id, string name);
 
-    void addCourse(string name);
+    void addCourse(Course* course);
 
     bool changeUser(string id, string major);
 

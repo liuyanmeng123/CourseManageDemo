@@ -1,7 +1,6 @@
 //
 // Created by 86189 on 2021/8/22.
 //
-#include <iostream>
 
 #include "course.h"
 #include "user.h"
@@ -73,40 +72,18 @@ int Context::findCourse(string id,string name) {
     return -1;
 }
 
-void Context::addCourse(string name) {
-    /*
-    string id;
-    string coursetype;
-    unsigned int credit;
-    int time;
-    string teachername;
-    int i = findCourse(name);
+void Context::addCourse(Course* course) {
+
+    int i = findCourse(course->getName());
 
     if(i >= 0) {
         showInfo("已开设该课程！");
     }
     else{
-        cout << "请输入该课程id："  << endl;
-        cin >> id;
-
-        cout << "请输入该课程类型："  << endl;
-        cin >> coursetype;
-
-        cout << "请输入该课程学分：" << endl;
-        cin >> credit;
-
-        cout << "请输入该课程课时：" << endl;
-        cin >> time;
-
-        cout << "请输入您的姓名：" << endl;
-        cin >> teachername;
-
-        Course course(name,coursetype, id, credit,time,teachername);
         course_list.push_back(course);
 
-        cout << "开课成功！" << endl;
     }
-*/
+
 
 
 }

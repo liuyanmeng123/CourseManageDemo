@@ -9,22 +9,52 @@
 #include "teacher.h"
 #include "course.h"
 #include "global.h"
+#include "utils.h"
 
 using namespace std;
 
 //开课
 void Teacher::openCourse(){
-    /*
-    string coursename;
 
-    cout << "请输入想要开设的课程名称：" << endl;
+    string coursename;
+    string id;
+    string coursetype;
+    unsigned int credit;
+    int time;
+    string teachername;
+
+    showInfo("请输入该课程id：");
+    cin >> id;
+
+    showInfo("请输入该课程类型：");
+    cin >> coursetype;
+
+    showInfo("请输入该课程学分：");
+    cin >> credit;
+
+    showInfo("请输入该课程课时：");
+    cin >> time;
+
+    showInfo("请输入您的姓名：");
+    cin >> teachername;
+
+    showInfo("请输入想要开设的课程名称：");
     cin >> coursename;
 
-    Context& context = Context::get_instance();
-    context.addCourse(coursename);
-    tea_course_id_list.push_back(id);
+    Course*course_p = nullptr;
 
-     */
+    course_p = new Course(coursename,coursetype,id,credit,time,teachername);
+
+    Context& context = Context::get_instance();
+
+    if(course_p) {
+        context.addCourse(course_p);
+        tea_course_id_list.push_back(id);
+
+        showInfo("开课成功！");
+    } else {
+        showInfo("开课失败！");
+    }
 
 }
 
