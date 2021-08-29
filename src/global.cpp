@@ -83,9 +83,6 @@ void Context::addCourse(Course* course) {
         course_list.push_back(course);
 
     }
-
-
-
 }
 
 bool Context::addUser(User* user) {

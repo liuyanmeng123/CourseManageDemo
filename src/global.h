@@ -7,6 +7,7 @@
 
 #include "course.h"
 #include "user.h"
+#include "grade.h"
 //using namespace std;
 
 #define  GET_CONTEXT Context& context = Context::get_instance()
@@ -40,6 +41,8 @@ public:
     int findCourse(string id, string name);
 
     void addCourse(Course* course);
+
+    //void addGrade(Grade* grade);
 
     bool changeUser(string id, string major);
 

@@ -63,10 +63,10 @@ void Teacher::getStuList(){
     Context& context = Context::get_instance();
 
 	for(int i = 0; i < tea_course_id_list.size(); i++){
-	    Course* course = context.getCourse(tea_course_id_list[i]);
-	    showInfo(course->getName());
-		for(int j = 0; j < course->stu_id_list.size(); j++){
-		    User* user = context.getUser(course->stu_id_list[j]);
+	    Course* course_ptr = context.getCourse(tea_course_id_list[i]);
+	    showInfo(course_ptr->getName());
+		for(int j = 0; j < course_ptr->stu_id_list.size(); j++){
+		    User* user = context.getUser(course_ptr->stu_id_list[j]);
 		    showInfo(user->getName());
 		}
 
@@ -76,25 +76,32 @@ void Teacher::getStuList(){
 
 
 void Teacher::postGrades(){
-    /*
-	for(int i = 0;i < teacourselist.size();i++){
-		cout << "登入第" << i + 1 << "门课的成绩：" << endl;
 
-		for(int j = 0; j < teacourselist[i].stu_id_list.size(); j++){
+	for(int i = 0; i < tea_course_id_list.size(); i++){
+	    Context& context = Context::get_instance();
+        Course*course_ptr = context.getCourse(tea_course_id_list[i]);
+
+        cout << "请登入" << course_ptr->getName() << "课的成绩：" << endl;
+		for(int j = 0; j < course_ptr->stu_id_list.size(); j++){
 			string stuid;
 			double stugrade;
 
-			cout << "请输入学生id：" << endl;
+			showInfo("请输入学生id：" );
 			cin >> stuid;
-			cout << "请输入该学生成绩：" << endl;
+			showInfo("请输入该学生成绩：");
 			cin >> stugrade;
-			Grade grade(stuid,stugrade);
-		    teacourselist[i].grade_list.push_back(grade);
-		}
 
-		cout << "第" << i + 1 << "门课成绩录入成功！" << endl;
+			Grade*grade_ptr = nullptr;
+			grade_ptr = new Grade(stuid, stugrade);
+
+			if(grade_ptr) {
+			   course_ptr->grade_list.push_back(grade_ptr);
+			   showInfo("登入成功！");
+			} else {
+			    showInfo("登入失败！");
+			}
+		}
 	}
-     */
 }
 
 Teacher::Teacher(string name, string id, string password, int type) : \

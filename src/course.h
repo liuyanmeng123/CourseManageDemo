@@ -21,7 +21,7 @@ public:
 	//int getStuNum();
 		
 	vector<string> stu_id_list;		//学生名单
-	vector<Grade> grade_list;		//成绩名单
+	vector<Grade*> grade_list;		//成绩名单
 	//int stunum;				    //学生数量 
 		
 private:
