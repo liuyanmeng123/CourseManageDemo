@@ -101,11 +101,11 @@ string Context::getCourseID(string name) {
     return "";
 }
 
-Course Context::getCourse(string id, string name) {
+Course* Context::getCourse(string id, string name) {
     if (!id.empty()) {
         for (int i = 0; i < course_list.size(); i++) {
             if (course_list[i]->getId() == id) {
-                return *course_list[i];
+                return course_list[i];
             }
         }
     }
@@ -113,7 +113,24 @@ Course Context::getCourse(string id, string name) {
     if (!name.empty()) {
         for (int i = 0; i < course_list.size(); i++) {
             if (course_list[i]->getName() == name) {
-                return *course_list[i];
+                return course_list[i];
+            }
+        }
+    }
+}
+
+User* Context::getUser(string id, string name) {
+    if(!id.empty()) {
+        for(int i = 0; i < user_list.size(); i++) {
+            if (user_list[i]->getId() == id) {
+                return user_list[i];
+            }
+        }
+    }
+    if(!name.empty()) {
+        for(int i = 0; i < user_list.size(); i++) {
+            if(user_list[i]->getName() == name) {
+                return user_list[i];
             }
         }
     }

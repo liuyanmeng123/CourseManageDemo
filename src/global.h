@@ -31,7 +31,9 @@ public:
 
     string getCourseID(string name);
 
-    Course getCourse(string id, string name = "");
+    Course* getCourse(string id, string name = "");
+
+    User* getUser(string id, string name = "");
 
     int findUser(string id, string name = "");
 

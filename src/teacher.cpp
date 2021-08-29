@@ -60,15 +60,18 @@ void Teacher::openCourse(){
 
 
 void Teacher::getStuList(){
-    /*
-	for(int i = 0; i < teacourselist.size(); i++){
-		for(int j = 0; j < teacourselist[i].stu_id_list.size(); j++){
-		    cout << teacourselist[i].stu_id_list[j] << "  ";
+    Context& context = Context::get_instance();
+
+	for(int i = 0; i < tea_course_id_list.size(); i++){
+	    Course* course = context.getCourse(tea_course_id_list[i]);
+	    showInfo(course->getName());
+		for(int j = 0; j < course->stu_id_list.size(); j++){
+		    User* user = context.getUser(course->stu_id_list[j]);
+		    showInfo(user->getName());
 		}
 
-		cout << endl;
 	}
-     */
+
 }
 
 
