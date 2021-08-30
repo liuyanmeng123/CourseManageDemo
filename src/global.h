@@ -14,7 +14,7 @@
 
 class Context {
 public:
-    ~Context() = default;
+    ~Context();
 
     Context(const Context &) = delete;
 
@@ -52,12 +52,17 @@ public:
 
     bool addUser(User* user);
 
+    User *getCurrentUser() const;
+
+    void setCurrentUser(User *currentUser);
+
 private:
     Context() = default;
 
     vector<Course *> course_list;
     vector<User *> user_list;
-    int current_usr_id;
+    User* current_user;
+
 };
 
 /*

@@ -6,6 +6,7 @@
 #include "user.h"
 #include "global.h"
 #include "utils.h"
+#include "debug.h"
 
 
 bool Context::changeCourse(int index, Course* course) {
@@ -114,6 +115,8 @@ Course* Context::getCourse(string id, string name) {
             }
         }
     }
+
+    return nullptr;
 }
 
 User* Context::getUser(string id, string name) {
@@ -131,6 +134,7 @@ User* Context::getUser(string id, string name) {
             }
         }
     }
+    return nullptr;
 }
 
 int Context::getUserType(string id) {
@@ -141,6 +145,7 @@ int Context::getUserType(string id) {
             }
         }
     }
+    return -1;
 }
 
 int Context::verifyUser(string id, string password) {
@@ -150,6 +155,27 @@ int Context::verifyUser(string id, string password) {
         }
     }
     return -1;
+}
+
+User *Context::getCurrentUser() const {
+    return current_user;
+}
+
+void Context::setCurrentUser(User *currentUser) {
+    current_user = currentUser;
+}
+
+Context::~Context() {
+    DEBUG_STDOUT("Context::~Context()");
+
+    for (int i = 0; i < course_list.size(); ++i) {
+        delete course_list[i];
+    }
+
+    for (int i = 0; i < user_list.size(); ++i) {
+        delete user_list[i];
+    }
+
 }
 
 

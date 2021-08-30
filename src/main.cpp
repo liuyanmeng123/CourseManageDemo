@@ -7,6 +7,7 @@
 #include "global.h"
 #include "student.h"
 #include "teacher.h"
+#include "debug.h"
 
 #include "config.h"
 
@@ -129,10 +130,7 @@ void signIn() {
     }
 }
 
-
-//登录
 int flag = 0;
-int operation;
 
 void logIn() {
     showInfo("==== 登录 ====");
@@ -193,14 +191,19 @@ void logIn() {
 
 void logOut() {
     showInfo("欢迎下次使用");
-    system("pause");
-    exit(0);
+//    system("pause");
+    cin.get();
 }
 
 void studentInterface() {
 #if CONFIG_STUDENT_FUNCTION
     Student student;
-    while (true) {
+    bool boolean = true;
+    int operation;
+    while (boolean) {
+        showInfo("请输入您的操作：选课(0)/退课(1)/查找课程信息(2)/修改密码(3)/退出系统(4)");
+        operation = getIntInput();
+
         switch (operation) {
             case SELECT:    //学生选课
                 student.selectCourse();
@@ -215,7 +218,7 @@ void studentInterface() {
                 student.changePassword();
                 break;
             case EXIT_STUDENT:
-                logout();
+                boolean = false;
                 break;
             default:
                 break;
@@ -227,12 +230,16 @@ void studentInterface() {
 }
 
 void teacherInterface() {
+    DEBUG_STDOUT("enter teacherInterface!!!");
 #if CONFIG_TEACHER_FUNCTION
     Teacher teacher;
     bool boolean = true;
+    int operation;
+    DEBUG_STDOUT("current user name: " + teacher.getName());
     while (boolean) {
         showInfo("请输入您的操作：开课(0)/获得学生名单(1)/登入成绩(2)/修改密码(3)/退出系统(4)");
         operation = getIntInput();
+
         switch(operation) {
             case OPEN:
                 teacher.openCourse();
@@ -264,9 +271,10 @@ void teacherInterface() {
 
 // Main
 int main(int argc, char **argv) {
-
+    DEBUG_STDOUT("main start!!!");
     int choice;
-    while (true) {
+    bool run_tag = true;
+    while (run_tag) {
         showInfo("请输入您的操作：注册(0)/登录(1)/登出(2)");
         choice = getIntInput();
 //		cout << "choice" << choice << endl;
@@ -285,12 +293,11 @@ int main(int argc, char **argv) {
                 }
                 break;
             case MAIN_OP_LOG_OUT:
-                showInfo("欢迎下次使用");
-                system("pause");
-                exit(0);
+                logOut();
+                run_tag = false;
                 break;
             default:
-                break;
+                exit(-1);
         }
     }
 
