@@ -133,6 +133,16 @@ User* Context::getUser(string id, string name) {
     }
 }
 
+int Context::getUserType(string id) {
+    if(!id.empty()) {
+        for(int i = 0; i < user_list.size(); i++) {
+            if (user_list[i]->getId() == id) {
+                return user_list[i]->getType();
+            }
+        }
+    }
+}
+
 int Context::verifyUser(string id, string password) {
     for (int i = 0; i < user_list.size(); i++) {
         if (user_list[i]->getId() == id && user_list[i]->getPassword() == password) {

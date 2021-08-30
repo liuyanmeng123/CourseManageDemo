@@ -36,6 +36,8 @@ public:
 
     User* getUser(string id, string name = "");
 
+    int getUserType(string id);
+
     int findUser(string id, string name = "");
 
     int findCourse(string id, string name);

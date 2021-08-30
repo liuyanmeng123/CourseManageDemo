@@ -13,7 +13,7 @@ using namespace std;
 class Teacher:public User {
 public:
     Teacher(string basicString, string basicString1, string basicString2, int i);
-
+    Teacher();
     void openCourse();		//开课
 	void getStuList();		//获得学生名单 
 	void postGrades();		//录入成绩

@@ -143,7 +143,20 @@ void logIn() {
     if (i >= 0) {
         cout << "登录成功！" << endl;
     }
-
+    info.type = context.getUserType(info.id);
+    switch(info.type) {
+        case STUDENT_TYPE:
+            flag = 0;
+            break;
+        case TEACHER_TYPE:
+            flag = 1;
+            break;
+        case ADMINISTRATOR_TYPE:
+            flag = 2;
+            break;
+        default:
+            break;
+    }
     /*
     if (i == user_list.size()) {
         cout << "信息错误！登录失败！" << endl;
@@ -178,6 +191,12 @@ void logIn() {
 */
 }
 
+void logOut() {
+    showInfo("欢迎下次使用");
+    system("pause");
+    exit(0);
+}
+
 void studentInterface() {
 #if CONFIG_STUDENT_FUNCTION
     Student student;
@@ -196,9 +215,7 @@ void studentInterface() {
                 student.changePassword();
                 break;
             case EXIT_STUDENT:
-                cout << "欢迎下次使用" << endl;
-                system("pause");
-                exit(0);
+                logout();
                 break;
             default:
                 break;
@@ -206,6 +223,38 @@ void studentInterface() {
     }
 #else
     showInfo("没有实现此功能");
+#endif
+}
+
+void teacherInterface() {
+#if CONFIG_TEACHER_FUNCTION
+    Teacher teacher;
+    bool boolean = true;
+    while (boolean) {
+        showInfo("请输入您的操作：开课(0)/获得学生名单(1)/登入成绩(2)/修改密码(3)/退出系统(4)");
+        operation = getIntInput();
+        switch(operation) {
+            case OPEN:
+                teacher.openCourse();
+                break;
+            case GET:
+                teacher.getStuList();
+                break;
+            case POST:
+                teacher.postGrades();
+                break;
+            case CHANGE_TEACHER:
+                teacher.changePassword();
+                break;
+            case EXIT_TEACHER:
+                boolean = false;
+                break;
+            default:
+                break;
+        }
+    }
+#else
+    showInfo("没有实现此功能！");
 #endif
 }
 
@@ -229,6 +278,10 @@ int main(int argc, char **argv) {
                 logIn();
                 if (flag == 0) {
                     studentInterface();
+                }
+
+                if(flag == 1) {
+                    teacherInterface();
                 }
                 break;
             case MAIN_OP_LOG_OUT:

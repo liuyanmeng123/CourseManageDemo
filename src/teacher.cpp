@@ -108,6 +108,7 @@ Teacher::Teacher(string name, string id, string password, int type) : \
 User(name, id, password, type) {
 }
 
+Teacher::Teacher(){};
 
 #endif // CONFIG_TEACHER_FUNCTION
 
