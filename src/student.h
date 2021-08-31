@@ -17,6 +17,7 @@ using namespace std;
 class Student:public User {
 public:
 	Student();
+	Student(string basicString, string basicString1, string basicString2, int i);
 	void selectCourse();		//选课 
 	void dropCourse();			//退课 
 	void getCourseInfo();		//获得课程信息 

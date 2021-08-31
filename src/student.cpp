@@ -84,7 +84,9 @@ Student::Student() {
 }
 #endif //CONFIG_STUDENT_FUNCTION
 
-
+Student::Student(string name, string id, string password, int type) : \
+User(name, id, password, type) {
+}
 
 
 

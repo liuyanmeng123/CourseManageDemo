@@ -114,6 +114,7 @@ void signIn() {
         User *user_p = nullptr;
         switch (info.type) {
             case STUDENT_TYPE:
+                user_p = new Student(info.name,info.id,info.password,info.type);
                 break;
             case TEACHER_TYPE:
                 user_p = new Teacher(info.name, info.id, info.password, info.type);
@@ -140,20 +141,27 @@ void logIn() {
     int i = context.verifyUser(info.id, info.password);
     if (i >= 0) {
         cout << "登录成功！" << endl;
-    }
-    info.type = context.getUserType(info.id);
-    switch(info.type) {
-        case STUDENT_TYPE:
-            flag = 0;
-            break;
-        case TEACHER_TYPE:
-            flag = 1;
-            break;
-        case ADMINISTRATOR_TYPE:
-            flag = 2;
-            break;
-        default:
-            break;
+
+        info.type = context.getUserType(info.id);
+        info.name = context.getUserName(info.id);
+        User* user_ptr = context.getUser(info.id,info.name);
+        context.setCurrentUser(user_ptr);
+
+        switch(info.type) {
+            case STUDENT_TYPE:
+                flag = 0;
+                break;
+            case TEACHER_TYPE:
+                flag = 1;
+                break;
+            case ADMINISTRATOR_TYPE:
+                flag = 2;
+                break;
+            default:
+                break;
+
+
+        }
     }
     /*
     if (i == user_list.size()) {
@@ -197,25 +205,25 @@ void logOut() {
 
 void studentInterface() {
 #if CONFIG_STUDENT_FUNCTION
-    Student student;
+    GET_CONTEXT;
+    Student* user_ptr = (Student*)context.getCurrentUser();
     bool boolean = true;
     int operation;
     while (boolean) {
         showInfo("请输入您的操作：选课(0)/退课(1)/查找课程信息(2)/修改密码(3)/退出系统(4)");
         operation = getIntInput();
-
         switch (operation) {
             case SELECT:    //学生选课
-                student.selectCourse();
+                user_ptr->selectCourse();
                 break;
             case DROP:        //学生退课
-                student.dropCourse();
+                user_ptr->dropCourse();
                 break;
             case SEARCH:    //学生查询课程信息
-                student.getCourseInfo();
+                user_ptr->getCourseInfo();
                 break;
             case CHANGE_STUDENT:
-                student.changePassword();
+                user_ptr->changePassword();
                 break;
             case EXIT_STUDENT:
                 boolean = false;
@@ -232,26 +240,27 @@ void studentInterface() {
 void teacherInterface() {
     DEBUG_STDOUT("enter teacherInterface!!!");
 #if CONFIG_TEACHER_FUNCTION
-    Teacher teacher;
+    GET_CONTEXT;
+    Teacher* user_ptr = (Teacher*)context.getCurrentUser();
     bool boolean = true;
     int operation;
-    DEBUG_STDOUT("current user name: " + teacher.getName());
+    DEBUG_STDOUT("current user name: " + user_ptr->getName());
     while (boolean) {
         showInfo("请输入您的操作：开课(0)/获得学生名单(1)/登入成绩(2)/修改密码(3)/退出系统(4)");
         operation = getIntInput();
 
         switch(operation) {
             case OPEN:
-                teacher.openCourse();
+                user_ptr->openCourse();
                 break;
             case GET:
-                teacher.getStuList();
+                user_ptr->getStuList();
                 break;
             case POST:
-                teacher.postGrades();
+                user_ptr->postGrades();
                 break;
             case CHANGE_TEACHER:
-                teacher.changePassword();
+                user_ptr->changePassword();
                 break;
             case EXIT_TEACHER:
                 boolean = false;
